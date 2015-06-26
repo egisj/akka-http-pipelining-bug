@@ -2,12 +2,12 @@ import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.model.{HttpResponse, HttpMethods, HttpRequest}
 import akka.http.scaladsl.server.Directives
-import akka.stream.ActorFlowMaterializer
+import akka.stream.ActorMaterializer
 import akka.stream.scaladsl.Sink
 
 object BugDemo extends App {
   implicit val actorSystem = ActorSystem()
-  implicit val flowMaterializer = ActorFlowMaterializer()
+  implicit val flowMaterializer = ActorMaterializer()
 
   val http = Http()
   val req = HttpRequest(HttpMethods.GET, "http://localhost:8080")
@@ -19,7 +19,7 @@ object BugDemo extends App {
 
 object TestServer extends App with Directives {
   implicit val system = ActorSystem()
-  implicit val flowMaterializer = ActorFlowMaterializer()
+  implicit val flowMaterializer = ActorMaterializer()
 
   val requestHandler: HttpRequest => HttpResponse = {
     _ => HttpResponse()
